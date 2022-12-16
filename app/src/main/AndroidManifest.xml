@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MUSIC_PLAYER" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" android:host="example.com" />
+        </intent>
+        <package android:name="com.google.android.as" />
+    </queries>
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Project_y"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.Project_y.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <service
+            android:stopWithTask="true"
+            android:name=".ForegroundService"
+            android:enabled="true"
+            android:exported="true" />
+        <receiver android:name=".AndroidMusicIntentReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.music.playstatechanged" />
+                <action android:name="com.android.music.playbackcomplete" />
+                <action android:name="com.android.music.metachanged" />
+                <action android:name="com.android.music.queuechanged" />
+                <action android:name="com.htc.music.metachanged" />
+                <action android:name="com.htc.music.playbackcomplete" />
+                <action android:name="com.htc.music.playstatechanged" />
+            </intent-filter>
+        </receiver>
+<!--        <receiver-->
+<!--            android:name=".receiver.AndroidMusicReciever"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.android.music.metachanged" />-->
+<!--                <action android:name="com.android.music.playstatechanged" />-->
+<!--                <action android:name="com.android.music.playbackcomplete" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+        <service android:name=".MediaPlaybackService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.media.browse.MediaBrowserService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
